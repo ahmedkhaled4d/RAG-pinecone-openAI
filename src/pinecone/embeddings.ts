@@ -1,6 +1,5 @@
 // Import the Pinecone library
-
-import { pc } from "./pinecone/init";
+import { pc } from "./init";
 
 // Define a sample dataset where each item has a unique ID and piece of text
 const data = [
@@ -30,18 +29,10 @@ const data = [
 // Convert the text into numerical vectors that Pinecone can index
 const model = "multilingual-e5-large";
 
-async function main() {
-  try {
-    const embeddings = await pc.inference.embed(
-      model,
-      data.map((d) => d.text),
-      { inputType: "passage", truncate: "END" }
-    );
+const embeddings = await pc.inference.embed(
+  model,
+  data.map((d) => d.text),
+  { inputType: "passage", truncate: "END" }
+);
 
-    console.log(embeddings);
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-main();
+console.log(embeddings);
